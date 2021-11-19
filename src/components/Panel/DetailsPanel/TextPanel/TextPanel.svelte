@@ -23,6 +23,8 @@
 </script>
 
 <script lang="ts">
+  import Accordion from '@/components/Accordion/Accordion.svelte';
+
   export let item: Text;
 
   let value: TextTabsType = 'TEXT',
@@ -33,24 +35,16 @@
   });
 </script>
 
-<Select bind:value {text}>
-  {#each Object.keys(TextTabs) as key}
-    <Option value={key}>{TextTabs[key]}</Option>
-  {/each}
-</Select>
-{#if value === 'TEXT'}
-  <SimpleInput title="Content" bind:value={item.text_expression} multiline />
-{:else if value === 'PAINT'}
+<Accordion title="Text">
+  <SimpleInput title="Text" bind:value={item.text_expression} multiline />
   <ColorInput bind:color={item.paint_color} />
-{:else if value === 'POSITION'}
-  {#if dataService.hasAnchor(item)}
-    <AnchorInput {item} />
-  {/if}
-  {#if item[KLWE_ATTRIBUTE].parent}
-    <PaddingInput {item} />
-  {:else}
-    <OffsetInput {item} />
-  {/if}
+</Accordion>
+
+{#if dataService.hasAnchor(item)}
+  <AnchorInput {item} />
+{/if}
+{#if item[KLWE_ATTRIBUTE].parent}
+  <PaddingInput {item} />
 {:else}
-  <p style="text-align: center;">Under Construction!</p>
+  <OffsetInput {item} />
 {/if}

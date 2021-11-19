@@ -22,7 +22,7 @@
     flex-direction: column;
     background: themed(panel, background);
     transition: margin 150ms;
-    padding: size(md) size(sm);
+
     z-index: z-index(panel);
 
     &--left {
